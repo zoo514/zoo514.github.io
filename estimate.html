@@ -7,7 +7,7 @@
 <title>Driveway Concepts Inc. | Estimate</title>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
 <link href="styles.css" rel="stylesheet"/>
-<script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=YOUR_SECURE_KEY&amp;libraries=drawing,geometry,places&amp;callback=initMap"></script>
+<script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTPcOWh757u-orzh5br2cxhiruKmYnA48&amp;libraries=drawing,geometry,places&amp;callback=initMap"></script>
 </head>
 <body>
 <!-- HEADER (Transparent) with Hamburger -->
@@ -74,6 +74,31 @@
 <p>Serving Bucks &amp; Montgomery Counties | (610) 847-8888</p>
 </footer>
 <script src="script.js"></script>
+<script>
+function initMap() {
+  const map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: 40.0, lng: -75.0 },
+    zoom: 12,
+  });
 
-</body>
+  const drawingManager = new google.maps.drawing.DrawingManager({
+    drawingMode: google.maps.drawing.OverlayType.POLYGON,
+    drawingControl: true,
+    drawingControlOptions: {
+      position: google.maps.ControlPosition.TOP_CENTER,
+      drawingModes: ["polygon"],
+    },
+    polygonOptions: {
+      fillColor: '#ff0000',
+      fillOpacity: 0.4,
+      strokeWeight: 2,
+      clickable: false,
+      editable: true,
+      zIndex: 1
+    }
+  });
+
+  drawingManager.setMap(map);
+}
+</script></body>
 </html>
