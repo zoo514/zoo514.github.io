@@ -7,7 +7,7 @@
 <title>Driveway Concepts Inc. | Estimate</title>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
 <link href="styles.css" rel="stylesheet"/>
-<script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTPcOWh757u-orzh5br2cxhiruKmYnA48&amp;libraries=drawing,geometry,places&amp;callback=initMap"></script>
+<script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTPcOWh757u-orzh5br2cxhiruKmYnA48&amp;libraries=places,drawing,geometry&amp;callback=initMap"></script>
 </head>
 <body>
 <!-- HEADER (Transparent) with Hamburger -->
@@ -78,27 +78,39 @@
 function initMap() {
   const map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: 40.0, lng: -75.0 },
-    zoom: 12,
+    zoom: 15,
+    mapTypeId: 'satellite'
   });
+
+  const input = document.getElementById("address-input");
+  const autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete.bindTo("bounds", map);
 
   const drawingManager = new google.maps.drawing.DrawingManager({
     drawingMode: google.maps.drawing.OverlayType.POLYGON,
     drawingControl: true,
     drawingControlOptions: {
       position: google.maps.ControlPosition.TOP_CENTER,
-      drawingModes: ["polygon"],
+      drawingModes: ["polygon"]
     },
     polygonOptions: {
-      fillColor: '#ff0000',
+      fillColor: "#FF0000",
       fillOpacity: 0.4,
       strokeWeight: 2,
-      clickable: false,
       editable: true,
       zIndex: 1
     }
   });
 
   drawingManager.setMap(map);
+
+  google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) {
+    if (event.type === 'polygon') {
+      const area = google.maps.geometry.spherical.computeArea(event.overlay.getPath());
+      document.getElementById("area-info").innerHTML =
+        "Draw a polygon on the map to see your driveway’s area.<br><strong>Approx. Area:</strong> " + area.toFixed(2) + " m² (" + (area * 10.764).toFixed(2) + " ft²)";
+    }
+  });
 }
 </script></body>
 </html>
