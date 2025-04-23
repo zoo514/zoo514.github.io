@@ -610,3 +610,34 @@ footer {
 .estimate-form textarea {
   grid-column: span 2;
 }
+
+
+/* Mobile Optimization for Header */
+@media screen and (max-width: 600px) {
+  .nav-container {
+    padding: 0.4rem 1rem;
+    flex-wrap: wrap;
+  }
+
+  .logo img {
+    max-height: 32px;
+  }
+
+  .logo-text {
+    font-size: 1.15rem;
+  }
+
+  .nav-phone {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  .nav-phone__number,
+  .nav-phone__label {
+    font-size: 1rem !important;
+  }
+
+  #mainHeader {
+    padding: 0.25rem 0 !important;
+  }
+}
